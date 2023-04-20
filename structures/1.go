@@ -17,13 +17,27 @@ type Character struct {
 func main() {
 	var char1, char2 Character
 
+	fmt.Printf("\n---------------------------- CHAR STATS ----------------------------------\n")
+
 	char1.InitChar("Guts", 100, 50, [2]string{"dragonslayer", "behelit"}, false)
 	char1.DisplayChar()
-
-	fmt.Printf("\n--------------------------------------------------------------\n")
-
+	fmt.Printf("\n")
 	char2.InitChar("Griffith", 100, 80, [2]string{"casque", "behelit pourpre"}, false)
 	char2.DisplayChar()
+
+	fmt.Printf("\n--------------------------- FIGHT -----------------------------------\n")
+
+	char1.Attack(&char2, 50)
+	char2.Attack(&char1, 90)
+	char1.Attack(&char2, 60)
+
+	fmt.Printf("\n---------------------------- AFTER FIGHT CHAR STATS ----------------------------------\n")
+
+	char1.DisplayChar()
+	fmt.Printf("\n")
+	char2.DisplayChar()
+
+	fmt.Printf("\n-------------------------------------------------------------------\n")
 }
 
 // Méthode agissant sur le personnage pour initialiser ses valeurs
@@ -48,5 +62,20 @@ func (char *Character) DisplayChar() {
 		fmt.Printf("Il est mort\n")
 	} else {
 		fmt.Printf("Il est en vie\n")
+	}
+}
+
+// Méthode permettant à un personnage d'en attaquer un autre
+func (char *Character) Attack(enemy *Character, weaponAttack int) {
+	fmt.Printf("\n%s attaque %s et lui cause %d points de dégats !\n", char.name, enemy.name, weaponAttack)
+
+	enemy.lifePoints -= weaponAttack
+
+	if enemy.lifePoints <= 0 {
+		enemy.lifePoints = 0
+		enemy.isDead = true
+		fmt.Printf("%s est mort bravo à %s !\n", enemy.name, char.name)
+	} else {
+		fmt.Printf("il reste %d points de vie à %s\n", enemy.lifePoints, enemy.name)
 	}
 }
