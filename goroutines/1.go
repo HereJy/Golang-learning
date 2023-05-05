@@ -14,6 +14,7 @@ var wg sync.WaitGroup
 
 func main() {
 	debut := time.Now()
+	// wg.Add permet d'ajouter une goroutine à attendre
 	wg.Add(1)
 	go run("routine 1")
 	wg.Add(1)
