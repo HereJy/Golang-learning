@@ -11,8 +11,8 @@ import (
 
 func main() {
 	debut := time.Now()
-	run("routine 1")
-	run("routine 2")
+	go run("routine 1")
+	go run("routine 2")
 	run("routine 3")
 	fin := time.Now()
 	fmt.Println(fin.Sub(debut))
